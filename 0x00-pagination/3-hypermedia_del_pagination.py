@@ -40,12 +40,12 @@ class Server:
 
         assert index is None or 0 <= index < len(self.indexed_dataset())
 
-        dataS = self.indexed_dataset()
-        nIndex = index + page_size
-        data = [dataS.get(i) for i in range(index, min(nIndex, len(dataS)))]
+        Set = self.indexed_dataset()
+        next_index = index + page_size
+        data = [Set.get(i) for i in range(index, min(next_index, len(Set)))]
         return {
             'index': index,
-            'next_index': nIndex if nIndex < len(dataS) else None,
+            'data': data,
             'page_size': len(data),
-            'data': data
+            'next_index': next_index if next_index < len(Set) else None
         }
