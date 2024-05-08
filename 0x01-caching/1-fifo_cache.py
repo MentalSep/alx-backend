@@ -18,7 +18,6 @@ class FIFOCache(BaseCaching):
                     print("DISCARD:", first_key)
             self.cache_data[key] = item
 
-
     def get(self, key):
         """ Get an item by key """
         if key is not None and key in self.cache_data:
