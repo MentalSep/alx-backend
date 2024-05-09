@@ -33,7 +33,7 @@ class LFUCache(BaseCaching):
                     del self.cache_data[key_to_remove]
                     del self.frequency[key_to_remove]
                     del self.usage_count[key_to_remove]
-                print("DISCARD:", key_to_remove)
+                    print("DISCARD:", key_to_remove)
 
         self.cache_data[key] = item
         self.frequency[key] = 1
