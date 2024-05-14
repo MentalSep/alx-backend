@@ -24,20 +24,20 @@ users = {
 }
 
 
-def get_user(user_id):
+def get_user(user_id) -> dict:
     """Retrieves user information from the mock user table"""
     return users.get(user_id)
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """Sets the user as a global variable based on login_as parameter."""
     user_id = request.args.get('login_as', type=int)
     g.user = get_user(user_id) if user_id else None
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """ Get locale """
     locale = request.args.get('locale')
     if locale in app.config['LANGUAGES']:
@@ -49,7 +49,7 @@ def get_locale():
 
 
 @app.route('/')
-def render():
+def render() -> str:
     """ Render a template """
     return render_template('6-index.html')
 

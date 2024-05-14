@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """ Basic Flask app """
 from flask import Flask, render_template, request, g
-from flask_babel import Babel
+from flask_babel import Babel, gettext, format_datetime
+import pytz
+import datetime
 
 app = Flask(__name__)
 babel = Babel(app)
@@ -42,13 +44,32 @@ def get_locale() -> str:
     locale = request.args.get('locale')
     if locale in app.config['LANGUAGES']:
         return locale
+    user = getattr(g, 'user', None)
+    if user and user.get('locale') in app.config['LANGUAGES']:
+        return user.get('locale')
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
+@babel.timezoneselector
+def get_timezone() -> str:
+    """Determines the best timezone match"""
+    timezone = request.args.get('timezone')
+    if timezone and timezone in pytz.all_timezones:
+        return timezone
+
+    user = getattr(g, 'user', None)
+    if user and user.get('timezone') and \
+            user['timezone'] in pytz.all_timezones:
+        return user['timezone']
+
+    return app.config['BABEL_DEFAULT_TIMEZONE']
 
 
 @app.route('/')
 def render() -> str:
     """ Render a template """
-    return render_template('5-index.html')
+    g.time = format_datetime()
+    return render_template('index.html')
 
 
 if __name__ == "__main__":
