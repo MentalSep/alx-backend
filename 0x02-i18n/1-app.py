@@ -17,6 +17,7 @@ class Config:
 app.config.from_object(Config)
 
 
+@app.route('/')
 def render():
     """ Render a template """
     return render_template('1-index.html')
