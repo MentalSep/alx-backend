@@ -9,7 +9,7 @@ babel = Babel(app)
 
 class Config:
     """ Config class """
-    LANGUAGES = ['en', 'fr']
+    LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
@@ -29,7 +29,7 @@ def get_locale():
 @app.route('/')
 def render():
     """ Render a template """
-    return render_template('1-index.html')
+    return render_template('4-index.html')
 
 
 if __name__ == "__main__":
